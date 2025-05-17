@@ -3,10 +3,13 @@ const {
   createCategorySchema,
 } = require("../validation/category.validation.js");
 const { createProductSchema } = require("../validation/product.validation.js");
+
+const { createUserSchema } = require("../validation/user.validation.js");
 const j2s = require("joi-to-swagger");
 
 const { swagger: productSwaggerSchema } = j2s(createProductSchema);
 const { swagger: categorySwaggerSchema } = j2s(createCategorySchema);
+const { swagger: userSwaggerSchema } = j2s(createUserSchema);
 
 const baseUrl = process.env.BASE_URL || "http://localhost:5000";
 
@@ -274,11 +277,67 @@ const openApiDocument = {
         },
       },
     },
+    "/api/users": {
+      get: {
+        tags: ["Users"],
+        summary: "Get all users",
+        description: "Returns a list of all users",
+        responses: {
+          200: {
+            description: "A list of users",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    items: {
+                      $ref: "#/components/schemas/User",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      post: {
+        tags: ["Users"],
+        summary: "Create a new user",
+        description: "Creates a new user",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/User",
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: "User created successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/User",
+                },
+              },
+            },
+          },
+          400: {
+            description: "Invalid input",
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
       Product: productSwaggerSchema,
       Category: categorySwaggerSchema,
+      User: userSwaggerSchema,
     },
   },
 };

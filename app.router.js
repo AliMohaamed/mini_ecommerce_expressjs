@@ -18,7 +18,8 @@ exports.appRouter = (app) => {
 
   // not found page router
   app.all("/{*any}", (req, res, next) => {
-    return res.status(400).json({ success: false, message: "Page not found" });
+    // return res.status(400).json({ success: false, message: "Page not found" });
+    return next(new Error("Page not found"));
   });
   // Error Handler
   app.use((error, req, res, next) => {
