@@ -12,7 +12,16 @@ const validate = require("../middleware/validate.middleware.js");
 const { createProductSchema } = require("../validation/product.validation.js");
 
 const router = express.Router();
-
+/**
+ * @swagger
+ * /api/products:
+ *  post:
+ *    summary : Get All Products
+ *    response :
+ *        200:
+ *            description: A List of  Products
+ *
+ */
 router.get("/", getProducts);
 router.get("/search", searchProduct);
 router.get("/:id", getProductById);

@@ -4,7 +4,7 @@ const { isValidObjectId } = require("../helper/isValidObjectId.js");
 const createProductSchema = Joi.object({
   name: Joi.string().required(),
   price: Joi.number().required(),
-  categoryId: Joi.string().custom(isValidObjectId),
+  categoryId: Joi.string().custom(isValidObjectId).required(),
 });
 
 module.exports = { createProductSchema };
