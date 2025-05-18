@@ -6,6 +6,9 @@ const productRoutes = require("./routes/products.routes");
 const categoryRoutes = require("./routes/categories.routes");
 const userRoutes = require("./routes/users.routes");
 const cartRoutes = require("./routes/cart.routes");
+const authRoutes = require("./routes/auth.routes.js");
+const { errorHandler } = require("./middleware/errorHandler.middleware.js");
+const ApiError = require("./helper/ApiError.js");
 
 exports.appRouter = (app) => {
   app.use(express.json());
@@ -15,14 +18,12 @@ exports.appRouter = (app) => {
   app.use("/api/categories", categoryRoutes);
   app.use("/api/users", userRoutes);
   app.use("/api/cart", cartRoutes);
+  app.use("/api/auth", authRoutes);
 
   // not found page router
   app.all("/{*any}", (req, res, next) => {
-    // return res.status(400).json({ success: false, message: "Page not found" });
-    return next(new Error("Page not found"));
+    return next(new ApiError(400, "Page not found"));
   });
   // Error Handler
-  app.use((error, req, res, next) => {
-    res.status(500).json({ message: `Error , ${error}` });
-  });
+  app.use(errorHandler);
 };
