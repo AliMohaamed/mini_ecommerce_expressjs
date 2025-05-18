@@ -5,7 +5,7 @@ const {
   updateProductToCart,
   deleteProductToCart,
   deleteCartUser,
-} = require("../controllers/CartController");
+} = require("../controllers/CartController.js");
 const validate = require("../middleware/ValidateMiddleware.js");
 const { cartItemSchema } = require("../validation/CartValidation.js");
 

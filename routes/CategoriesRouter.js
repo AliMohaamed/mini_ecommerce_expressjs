@@ -3,7 +3,7 @@ const {
   getCategories,
   addCategories,
   getAllProductByCategory,
-} = require("../controllers/CategoriesController");
+} = require("../controllers/CategoriesController.js");
 
 const { createCategorySchema } = require("../validation/CategoryValidation.js");
 const validate = require("../middleware/ValidateMiddleware.js");

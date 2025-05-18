@@ -17,7 +17,6 @@ const protect = async (req, res, next) => {
         .json({ success: false, message: "User not found" });
 
     req.user = user;
-    console.log(req.user);
     next();
   } catch (error) {
     return next(new ApiError(400, error));
