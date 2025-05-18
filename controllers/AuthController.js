@@ -1,3 +1,4 @@
+const Role = require("../DB/models/RoleModel.js");
 const User = require("../DB/models/UserModel.js");
 const ApiError = require("../helper/ApiError.js");
 const jwt = require("jsonwebtoken");
@@ -8,8 +9,10 @@ const register = async (req, res, next) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) return next(new ApiError(400, "User Already Exist"));
-    const user = new User({ name, email, password });
-    await user.save();
+
+    const userRole = await Role.findOne({ name: "User" });
+
+    const user = new User({ name, email, password, roles: [userRole._id] });
 
     // JWT
     const token = jwt.sign(
@@ -19,11 +22,14 @@ const register = async (req, res, next) => {
         iss: process.env.ISSUER,
         aud: process.env.AUDIENCE,
       },
-      process.env.JWT_SECRET,
+      process.env.Access_Token_SECRET,
       {
         expiresIn: "1h",
       }
     );
+
+    await user.save();
+
     res.status(201).json({
       message: "User registered",
       token,

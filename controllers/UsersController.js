@@ -1,10 +1,12 @@
+const Role = require("../DB/models/RoleModel.js");
 const User = require("../DB/models/UserModel.js");
+const { asyncHandler } = require("../helper/asyncHandler.js");
 const { sendResponse } = require("../helper/sendResponseHelper.js");
 
 // Get all users
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find().populate("roles", { name: 1, _id: 0 });
     sendResponse(res, 200, true, "Users retrieved successfully", users);
   } catch (error) {
     sendResponse(res, 500, false, error.message || "Internal server error");
@@ -15,7 +17,7 @@ const getUsers = async (req, res) => {
 const getUsersById = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate("roles");
     if (!user) {
       return sendResponse(res, 404, false, "User not found");
     }
@@ -76,4 +78,28 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, addUser, deleteUser, getUsersById, updateUser };
+const assignRolesToUser = asyncHandler(async (req, res, next) => {
+  const { roles } = req.body;
+  const roleDocs = await Role.find({ name: { $in: roles } });
+  if (!roleDocs.length) {
+    return res.status(400).json({ message: "Invalid Roles" });
+  }
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    {
+      roles: roleDocs.map((r) => r._id),
+    },
+    { new: true }
+  ).populate("roles");
+  if (!user) return sendResponse(res, 404, false, "User not found");
+  sendResponse(res, 201, true, "Roles assigned successfully", user);
+});
+
+module.exports = {
+  getUsers,
+  addUser,
+  deleteUser,
+  getUsersById,
+  updateUser,
+  assignRolesToUser,
+};

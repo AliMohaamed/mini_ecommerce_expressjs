@@ -2,15 +2,16 @@ const Role = require("../DB/models/RoleModel.js");
 const User = require("../DB/models/UserModel.js");
 
 const seedRoles = async () => {
-  const roles = ["admin", "buyer", "customer", "user"];
+  const roles = ["Admin", "Buyer", "Customer", "User"];
   for (const role of roles) {
     const exists = await Role.findOne({ name: role });
+
     if (!exists) {
       await Role.create({ name: role });
     }
   }
 
-  const adminRole = await Role.findOne({ name: "admin" });
+  const adminRole = await Role.findOne({ name: "Admin" });
 
   const adminExists = await User.findOne({ roles: adminRole._id });
 
@@ -23,9 +24,8 @@ const seedRoles = async () => {
     });
 
     await admin.save();
-
-    console.log("Admin created");
   }
+  console.log("Admin created");
 };
 
 module.exports = seedRoles;
