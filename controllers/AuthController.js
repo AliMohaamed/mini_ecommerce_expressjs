@@ -1,4 +1,4 @@
-const User = require("../DB/models/User.model.js");
+const User = require("../DB/models/UserModel.js");
 const ApiError = require("../helper/ApiError.js");
 const jwt = require("jsonwebtoken");
 
@@ -52,7 +52,7 @@ const login = async (req, res, next) => {
         iss: process.env.ISSUER,
         aud: process.env.AUDIENCE,
       },
-      process.env.JWT_SECRET,
+      process.env.Access_Token_SECRET,
       {
         expiresIn: "1h",
       }

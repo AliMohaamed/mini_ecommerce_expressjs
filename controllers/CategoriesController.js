@@ -1,6 +1,6 @@
-const Category = require("../DB/models/Category.model.js");
+const Category = require("../DB/models/CategoryModel.js");
 const { sendResponse } = require("../helper/sendResponseHelper.js");
-const Products = require("../DB/models/Products.model.js");
+const Products = require("../DB/models/ProductsModel.js");
 const getCategories = async (req, res, next) => {
   try {
     const categories = await Category.find();

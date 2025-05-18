@@ -1,6 +1,6 @@
 const { sendResponse } = require("../helper/sendResponseHelper.js");
-const Cart = require("../DB/models/Cart.model.js");
-const User = require("../DB/models/User.model.js");
+const Cart = require("../DB/models/CartModel.js");
+const User = require("../DB/models/UserModel.js");
 
 const cartUser = async (req, res) => {
   try {

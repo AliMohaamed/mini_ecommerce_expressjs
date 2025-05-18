@@ -2,12 +2,12 @@ const express = require("express");
 const morgan = require("morgan");
 
 // import all routes
-const productRoutes = require("./routes/products.routes");
-const categoryRoutes = require("./routes/categories.routes");
-const userRoutes = require("./routes/users.routes");
-const cartRoutes = require("./routes/cart.routes");
-const authRoutes = require("./routes/auth.routes.js");
-const { errorHandler } = require("./middleware/errorHandler.middleware.js");
+const productRoutes = require("./routes/ProductsRoutes.js");
+const categoryRoutes = require("./routes/CategoriesRoutes.js");
+const userRoutes = require("./routes/UsersRoutes.js");
+const cartRoutes = require("./routes/CartRoutes.js");
+const authRoutes = require("./routes/AuthRoutes.js");
+const { errorHandler } = require("./middleware/ErrorHandlerMiddleware.js");
 const ApiError = require("./helper/ApiError.js");
 
 exports.appRouter = (app) => {

@@ -7,9 +7,9 @@ const {
   getProductById,
   replaceProduct,
   searchProduct,
-} = require("../controllers/ProductsController");
-const validate = require("../middleware/validate.middleware.js");
-const { createProductSchema } = require("../validation/product.validation.js");
+} = require("../controllers/ProductsController.js");
+const validate = require("../middleware/ValidateMiddleware.js");
+const { createProductSchema } = require("../validation/ProductValidation.js");
 
 const router = express.Router();
 router.get("/", getProducts);

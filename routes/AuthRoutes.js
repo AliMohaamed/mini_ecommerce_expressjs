@@ -3,8 +3,8 @@ const { register, login } = require("../controllers/AuthController.js");
 const {
   registerSchema,
   loginSchema,
-} = require("../validation/user.validation.js");
-const validate = require("../middleware/validate.middleware.js");
+} = require("../validation/UserValidation.js");
+const validate = require("../middleware/ValidateMiddleware.js");
 
 const router = Router();
 

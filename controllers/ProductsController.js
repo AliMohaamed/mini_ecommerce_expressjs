@@ -1,5 +1,5 @@
 const { products } = require("../data.js");
-const Products = require("../DB/models/Products.model.js");
+const Products = require("../DB/models/ProductsModel.js");
 const { sendResponse } = require("../helper/sendResponseHelper.js");
 const getProducts = async (req, res) => {
   try {

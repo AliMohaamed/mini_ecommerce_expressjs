@@ -1,4 +1,4 @@
-const User = require("../DB/models/User.model.js");
+const User = require("../DB/models/UserModel.js");
 const { sendResponse } = require("../helper/sendResponseHelper.js");
 
 // Get all users

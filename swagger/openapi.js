@@ -1,10 +1,8 @@
 require("dotenv").config();
-const {
-  createCategorySchema,
-} = require("../validation/category.validation.js");
-const { createProductSchema } = require("../validation/product.validation.js");
+const { createCategorySchema } = require("../validation/CategoryValidation.js");
+const { createProductSchema } = require("../validation/ProductValidation.js");
 
-const { createUserSchema } = require("../validation/user.validation.js");
+const { createUserSchema } = require("../validation/UserValidation.js");
 const j2s = require("joi-to-swagger");
 
 const { swagger: productSwaggerSchema } = j2s(createProductSchema);

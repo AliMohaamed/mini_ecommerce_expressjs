@@ -6,9 +6,9 @@ const {
   updateUser,
   deleteUser,
 } = require("../controllers/UsersController");
-const { createUserSchema } = require("../validation/user.validation.js");
-const validate = require("../middleware/validate.middleware.js");
-const { protect } = require("../middleware/auth.middleware.js");
+const { createUserSchema } = require("../validation/UserValidation.js");
+const validate = require("../middleware/ValidateMiddleware.js");
+const { protect } = require("../middleware/AuthMiddleware.js");
 
 const router = express.Router();
 
